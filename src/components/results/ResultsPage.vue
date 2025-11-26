@@ -276,12 +276,16 @@
               Tygodniowy jadłospis
             </span>
           </div>
-          <button class="btn btn-accent btn-lg">
-            Stwórz mój plan żywieniowy
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M5 12h14M12 5l7 7-7 7"/>
-            </svg>
+          <button class="btn btn-accent btn-lg" @click="startCheckout" :disabled="checkoutLoading">
+            <span v-if="!checkoutLoading">
+              Stwórz mój plan żywieniowy — 10 zł
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </span>
+            <span v-else>Przekierowanie do płatności...</span>
           </button>
+          <p class="cta-price-note">Jednorazowa płatność • Bezpieczna płatność przez Stripe • BLIK, karta, Przelewy24</p>
         </div>
         <div class="cta-decoration">
           <div class="floating-food f1">🥑</div>
@@ -311,7 +315,7 @@
               <line x1="12" y1="16" x2="12" y2="12"/>
               <line x1="12" y1="8" x2="12.01" y2="8"/>
             </svg>
-            <span>Kliknij <strong>"Zobacz poprzednie wyniki"</strong> samej górze strony głównej, aby je znów otworzyć.</span>
+            <span>Kliknij <strong>"Zobacz poprzednie wyniki"</strong>w stopce strony głównej, aby je znów otworzyć.</span>
           </div>
           <button class="btn btn-primary" @click="showSavePopup = false">Rozumiem</button>
         </div>
@@ -337,6 +341,7 @@ const emit = defineEmits(['back'])
 const showSavePopup = ref(false)
 const expandedDeficiencies = reactive({})
 const expandedRecommendationSymptoms = reactive({})
+const checkoutLoading = ref(false)
 
 const formattedDate = computed(() => {
   return new Date().toLocaleDateString('pl-PL', {
@@ -410,6 +415,58 @@ const saveResults = () => {
 const downloadResults = () => {
   // In a real app, this would generate a PDF
   alert('Funkcja generowania PDF będzie dostępna wkrótce!')
+}
+
+const startCheckout = async () => {
+  checkoutLoading.value = true
+  
+  try {
+    // Generate unique session ID
+    const sessionId = 'session_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9)
+    
+    // Prepare deficiencies data for the API
+    const deficienciesData = props.results.deficiencies.map(d => ({
+      id: d.id,
+      name: d.name,
+      nutrientKey: d.nutrientKey,
+      severity: d.severity,
+      symptomCount: d.symptomCount,
+      symptoms: d.symptoms
+    }))
+    
+    // Get user preferences from the form data (if available)
+    const userPreferences = {
+      isVegetarian: props.results.formData?.diet === 'vegetarian',
+      isVegan: props.results.formData?.diet === 'vegan',
+      allergies: props.results.formData?.allergies || [],
+    }
+    
+    const response = await fetch('/api/create-checkout', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        deficiencies: deficienciesData,
+        userPreferences,
+        sessionId
+      }),
+    })
+    
+    if (!response.ok) {
+      throw new Error('Błąd tworzenia sesji płatności')
+    }
+    
+    const data = await response.json()
+    
+    // Redirect to Stripe Checkout
+    window.location.href = data.checkoutUrl
+    
+  } catch (error) {
+    console.error('Checkout error:', error)
+    alert('Wystąpił błąd podczas tworzenia płatności. Spróbuj ponownie.')
+    checkoutLoading.value = false
+  }
 }
 </script>
 
@@ -1059,6 +1116,12 @@ button.symptom-tag.more:hover {
 
 .cta-feature svg {
   color: var(--accent-400);
+}
+
+.cta-price-note {
+  margin-top: 16px;
+  font-size: 0.8125rem;
+  color: rgba(255, 255, 255, 0.7);
 }
 
 .cta-decoration {

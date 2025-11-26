@@ -12,6 +12,7 @@ const About = () => import('../views/About.vue')
 const Privacy = () => import('../views/Privacy.vue')
 const Terms = () => import('../views/Terms.vue')
 const Contact = () => import('../views/Contact.vue')
+const DietSuccess = () => import('../views/DietSuccess.vue')
 
 const routes = [
   {
@@ -68,6 +69,11 @@ const routes = [
     path: '/kontakt',
     name: 'Contact',
     component: Contact
+  },
+  {
+    path: '/dieta-sukces',
+    name: 'DietSuccess',
+    component: DietSuccess
   }
 ]
 
