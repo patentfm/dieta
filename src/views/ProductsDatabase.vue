@@ -805,122 +805,212 @@ const fiberFoods = [
 
 /* Sections */
 .nutrient-section {
-  margin-bottom: 48px;
+  margin-bottom: 32px;
 }
 
 .section-header {
-  margin-bottom: 20px;
-  padding: 16px 20px;
-  background: var(--gray-100);
-  border-left: 4px solid var(--primary-500);
-  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--gray-200);
 }
 
 .section-header h2 {
   display: flex;
   align-items: center;
-  gap: 10px;
-  font-size: 1.25rem;
-  margin: 0 0 4px 0;
+  gap: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--gray-600);
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .section-icon {
-  font-size: 1.25rem;
+  font-size: 1.125rem;
 }
 
 .section-header p {
-  color: var(--gray-500);
-  font-size: 0.875rem;
+  color: var(--gray-400);
+  font-size: 0.8125rem;
   margin: 0;
 }
 
-/* Nutrient Cards */
+/* Nutrient Cards - Row Style like Results Page */
 .nutrient-card {
   background: white;
   border-radius: var(--radius-xl);
-  padding: 28px;
-  margin-bottom: 24px;
+  margin-bottom: 16px;
   box-shadow: var(--shadow-md);
+  overflow: hidden;
+  border-left: 5px solid var(--primary-500);
+}
+
+/* Section-specific colors */
+#witaminy .nutrient-card {
+  border-left-color: #22c55e;
+}
+#witaminy .nutrient-header {
+  background: linear-gradient(135deg, white 0%, #f0fdf4 100%);
+}
+#witaminy .daily-value {
+  background: #dcfce7;
+  color: #166534;
+}
+
+#mineraly .nutrient-card {
+  border-left-color: #3b82f6;
+}
+#mineraly .nutrient-header {
+  background: linear-gradient(135deg, white 0%, #eff6ff 100%);
+}
+#mineraly .daily-value {
+  background: #dbeafe;
+  color: #1e40af;
+}
+
+#tluszcze .nutrient-card {
+  border-left-color: #f59e0b;
+}
+#tluszcze .nutrient-header {
+  background: linear-gradient(135deg, white 0%, #fffbeb 100%);
+}
+#tluszcze .daily-value {
+  background: #fef3c7;
+  color: #b45309;
+}
+
+#bialko .nutrient-card {
+  border-left-color: #ef4444;
+}
+#bialko .nutrient-header {
+  background: linear-gradient(135deg, white 0%, #fef2f2 100%);
+}
+#bialko .daily-value {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+#weglowodany .nutrient-card {
+  border-left-color: #a855f7;
+}
+#weglowodany .nutrient-header {
+  background: linear-gradient(135deg, white 0%, #faf5ff 100%);
+}
+#weglowodany .daily-value {
+  background: #f3e8ff;
+  color: #7c3aed;
+}
+
+#blonnik .nutrient-card {
+  border-left-color: #14b8a6;
+}
+#blonnik .nutrient-header {
+  background: linear-gradient(135deg, white 0%, #f0fdfa 100%);
+}
+#blonnik .daily-value {
+  background: #ccfbf1;
+  color: #0f766e;
 }
 
 .nutrient-header {
-  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+  background: linear-gradient(135deg, white 0%, var(--primary-50) 100%);
+  border-bottom: 1px solid var(--gray-100);
+  flex-wrap: wrap;
+  gap: 12px;
 }
 
 .nutrient-info {
   display: flex;
   align-items: center;
-  gap: 16px;
-  margin-bottom: 8px;
+  gap: 12px;
   flex-wrap: wrap;
 }
 
 .nutrient-info h3 {
-  font-size: 1.25rem;
+  font-size: 1.125rem;
+  font-weight: 700;
   margin: 0;
+  color: var(--gray-900);
 }
 
 .daily-value {
-  font-size: 0.8125rem;
-  color: var(--gray-500);
-  background: var(--gray-100);
+  font-size: 0.75rem;
+  color: var(--primary-700);
+  background: var(--primary-100);
   padding: 4px 12px;
   border-radius: var(--radius-full);
+  font-weight: 500;
 }
 
 .nutrient-desc {
-  color: var(--gray-600);
-  font-size: 0.9375rem;
-  line-height: 1.6;
+  color: var(--gray-500);
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  max-width: 400px;
 }
 
 /* Food Grid */
 .food-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 12px;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 8px;
+  padding: 16px 20px;
 }
 
 .food-item {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 14px 18px;
+  padding: 10px 14px;
   background: var(--gray-50);
   border-radius: var(--radius-md);
-  gap: 12px;
+  gap: 10px;
+  transition: all var(--transition-fast);
+}
+
+.food-item:hover {
+  background: var(--primary-50);
 }
 
 .food-name {
   font-weight: 500;
+  font-size: 0.875rem;
   color: var(--gray-800);
   flex: 1;
 }
 
 .food-amount {
-  font-size: 0.8125rem;
+  font-size: 0.75rem;
   color: var(--primary-600);
-  font-weight: 500;
+  font-weight: 600;
   text-align: right;
-  min-width: 140px;
+  min-width: 120px;
 }
 
 .food-price {
-  font-size: 0.75rem;
+  font-size: 0.6875rem;
   color: var(--gray-400);
-  min-width: 90px;
+  min-width: 80px;
   text-align: right;
 }
 
 /* Tip Box */
 .tip-box {
-  margin-top: 20px;
-  padding: 16px 20px;
-  background: var(--primary-50);
-  border-left: 4px solid var(--primary-500);
+  margin: 0 20px 16px;
+  padding: 12px 16px;
+  background: #fef3c7;
+  border-left: 3px solid #f59e0b;
   border-radius: var(--radius-md);
-  font-size: 0.9375rem;
-  color: var(--primary-800);
+  font-size: 0.8125rem;
+  color: #92400e;
 }
 
 /* Responsive */
