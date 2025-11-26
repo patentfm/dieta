@@ -818,14 +818,14 @@ const fiberFoods = [
 
 /* Content */
 .page-content {
-  padding: 48px 0 80px;
+  padding: 24px 0 60px;
 }
 
 /* Sections with Sidebar */
 .nutrient-section {
   display: flex;
   gap: 0;
-  margin-bottom: 48px;
+  margin-bottom: 20px;
   position: relative;
 }
 
@@ -909,10 +909,14 @@ const fiberFoods = [
 .nutrient-card {
   background: white;
   border-radius: var(--radius-xl);
-  margin-bottom: 16px;
+  margin-bottom: 12px;
   box-shadow: var(--shadow-md);
   overflow: hidden;
   border-left: 5px solid var(--primary-500);
+}
+
+.nutrient-card:last-child {
+  margin-bottom: 0;
 }
 
 /* Section-specific colors */
