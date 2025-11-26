@@ -38,11 +38,13 @@
         
         <!-- WITAMINY -->
         <section :id="'witaminy'" class="nutrient-section">
-          <div class="section-header">
-            <h2><span class="section-icon">💊</span> Witaminy</h2>
-            <p>Niezbędne mikroskładniki dla prawidłowego funkcjonowania organizmu</p>
+          <div class="section-sidebar">
+            <div class="sidebar-label">
+              <span class="sidebar-icon">💊</span>
+              <span class="sidebar-text">Witaminy</span>
+            </div>
           </div>
-
+          <div class="section-content">
           <!-- Witamina D -->
           <div class="nutrient-card">
             <div class="nutrient-header">
@@ -184,15 +186,18 @@
               </div>
             </div>
           </div>
+          </div>
         </section>
 
         <!-- MINERAŁY -->
         <section :id="'mineraly'" class="nutrient-section">
-          <div class="section-header">
-            <h2><span class="section-icon">⚙️</span> Minerały</h2>
-            <p>Pierwiastki niezbędne dla prawidłowego funkcjonowania organizmu</p>
+          <div class="section-sidebar">
+            <div class="sidebar-label">
+              <span class="sidebar-icon">⚙️</span>
+              <span class="sidebar-text">Minerały</span>
+            </div>
           </div>
-
+          <div class="section-content">
           <!-- Żelazo -->
           <div class="nutrient-card">
             <div class="nutrient-header">
@@ -324,15 +329,18 @@
               </div>
             </div>
           </div>
+          </div>
         </section>
 
         <!-- KWASY TŁUSZCZOWE -->
         <section :id="'tluszcze'" class="nutrient-section">
-          <div class="section-header">
-            <h2><span class="section-icon">🐟</span> Zdrowe tłuszcze</h2>
-            <p>Niezbędne kwasy tłuszczowe dla mózgu, serca i redukcji stanów zapalnych</p>
+          <div class="section-sidebar">
+            <div class="sidebar-label">
+              <span class="sidebar-icon">🐟</span>
+              <span class="sidebar-text">Tłuszcze</span>
+            </div>
           </div>
-
+          <div class="section-content">
           <!-- Omega-3 -->
           <div class="nutrient-card">
             <div class="nutrient-header">
@@ -371,15 +379,18 @@
               </div>
             </div>
           </div>
+          </div>
         </section>
 
         <!-- BIAŁKO -->
         <section :id="'bialko'" class="nutrient-section">
-          <div class="section-header">
-            <h2><span class="section-icon">🥩</span> Białko</h2>
-            <p>Budulec mięśni i tkanek - porównanie źródeł zwierzęcych i roślinnych</p>
+          <div class="section-sidebar">
+            <div class="sidebar-label">
+              <span class="sidebar-icon">🥩</span>
+              <span class="sidebar-text">Białko</span>
+            </div>
           </div>
-
+          <div class="section-content">
           <div class="nutrient-card">
             <div class="nutrient-header">
               <div class="nutrient-info">
@@ -399,15 +410,18 @@
               💡 <strong>Wskazówka:</strong> Łącz rośliny strączkowe ze zbożami (np. ryż + fasola) aby uzyskać kompletny profil aminokwasów.
             </div>
           </div>
+          </div>
         </section>
 
         <!-- WĘGLOWODANY -->
         <section :id="'weglowodany'" class="nutrient-section">
-          <div class="section-header">
-            <h2><span class="section-icon">🌾</span> Węglowodany o niskim IG</h2>
-            <p>Źródła energii, które nie powodują skoków cukru we krwi</p>
+          <div class="section-sidebar">
+            <div class="sidebar-label">
+              <span class="sidebar-icon">🌾</span>
+              <span class="sidebar-text">Węglowodany</span>
+            </div>
           </div>
-
+          <div class="section-content">
           <div class="nutrient-card">
             <div class="nutrient-header">
               <div class="nutrient-info">
@@ -427,15 +441,18 @@
               💡 <strong>Wskazówka:</strong> Gotuj makaron al dente - ma niższy IG niż rozgotowany. Dodawaj tłuszcz i białko do posiłków węglowodanowych.
             </div>
           </div>
+          </div>
         </section>
 
         <!-- BŁONNIK -->
         <section :id="'blonnik'" class="nutrient-section">
-          <div class="section-header">
-            <h2><span class="section-icon">🥗</span> Błonnik</h2>
-            <p>Niezbędny dla zdrowego trawienia i mikrobioty jelitowej</p>
+          <div class="section-sidebar">
+            <div class="sidebar-label">
+              <span class="sidebar-icon">🥗</span>
+              <span class="sidebar-text">Błonnik</span>
+            </div>
           </div>
-
+          <div class="section-content">
           <div class="nutrient-card">
             <div class="nutrient-header">
               <div class="nutrient-info">
@@ -451,6 +468,7 @@
                 <div class="food-price">{{ food.price }}</div>
               </div>
             </div>
+          </div>
           </div>
         </section>
 
@@ -803,40 +821,88 @@ const fiberFoods = [
   padding: 48px 0 80px;
 }
 
-/* Sections */
+/* Sections with Sidebar */
 .nutrient-section {
-  margin-bottom: 32px;
+  display: flex;
+  gap: 0;
+  margin-bottom: 48px;
+  position: relative;
 }
 
-.section-header {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  margin-bottom: 16px;
-  padding-bottom: 12px;
-  border-bottom: 2px solid var(--gray-200);
+.section-sidebar {
+  width: 48px;
+  flex-shrink: 0;
+  position: relative;
 }
 
-.section-header h2 {
+.sidebar-label {
+  position: sticky;
+  top: 80px;
   display: flex;
+  flex-direction: column;
   align-items: center;
   gap: 8px;
-  font-size: 1rem;
-  font-weight: 600;
+  padding: 16px 8px;
+  background: var(--gray-100);
+  border-radius: var(--radius-lg);
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  transform: rotate(180deg);
+}
+
+.sidebar-icon {
+  font-size: 1.25rem;
+  transform: rotate(180deg);
+}
+
+.sidebar-text {
+  font-size: 0.75rem;
+  font-weight: 700;
   color: var(--gray-600);
-  margin: 0;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.1em;
 }
 
-.section-icon {
-  font-size: 1.125rem;
+/* Section-specific sidebar colors */
+#witaminy .sidebar-label {
+  background: #dcfce7;
+  color: #166534;
 }
+#witaminy .sidebar-text { color: #166534; }
 
-.section-header p {
-  color: var(--gray-400);
-  font-size: 0.8125rem;
-  margin: 0;
+#mineraly .sidebar-label {
+  background: #dbeafe;
+  color: #1e40af;
+}
+#mineraly .sidebar-text { color: #1e40af; }
+
+#tluszcze .sidebar-label {
+  background: #fef3c7;
+  color: #b45309;
+}
+#tluszcze .sidebar-text { color: #b45309; }
+
+#bialko .sidebar-label {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+#bialko .sidebar-text { color: #b91c1c; }
+
+#weglowodany .sidebar-label {
+  background: #f3e8ff;
+  color: #7c3aed;
+}
+#weglowodany .sidebar-text { color: #7c3aed; }
+
+#blonnik .sidebar-label {
+  background: #ccfbf1;
+  color: #0f766e;
+}
+#blonnik .sidebar-text { color: #0f766e; }
+
+.section-content {
+  flex: 1;
+  min-width: 0;
 }
 
 /* Nutrient Cards - Row Style like Results Page */
@@ -1014,6 +1080,20 @@ const fiberFoods = [
 }
 
 /* Responsive */
+@media (max-width: 1024px) {
+  .section-sidebar {
+    width: 40px;
+  }
+  
+  .sidebar-label {
+    padding: 12px 6px;
+  }
+  
+  .sidebar-text {
+    font-size: 0.6875rem;
+  }
+}
+
 @media (max-width: 768px) {
   .page-header {
     padding: 32px 0 48px;
@@ -1021,6 +1101,26 @@ const fiberFoods = [
   
   .page-header h1 {
     font-size: 1.75rem;
+  }
+  
+  .nutrient-section {
+    flex-direction: column;
+  }
+  
+  .section-sidebar {
+    width: 100%;
+    margin-bottom: 12px;
+  }
+  
+  .sidebar-label {
+    writing-mode: horizontal-tb;
+    transform: none;
+    flex-direction: row;
+    padding: 10px 16px;
+  }
+  
+  .sidebar-icon {
+    transform: none;
   }
   
   .food-grid {
