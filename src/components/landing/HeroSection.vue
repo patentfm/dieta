@@ -92,19 +92,7 @@
       </div>
     </div>
     
-    <!-- Badge moved to bottom -->
-    <div class="hero-badge-container">
-      <span class="hero-badge">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M12 2L2 7l10 5 10-5-10-5z"/>
-          <path d="M2 17l10 5 10-5"/>
-          <path d="M2 12l10 5 10-5"/>
-        </svg>
-        Analiza Żywieniowa
-      </span>
-    </div>
-    
-    <!-- Scroll indicator -->
+<!-- Scroll indicator -->
     <div class="scroll-indicator">
       <div class="mouse">
         <div class="wheel"></div>
@@ -236,33 +224,6 @@
   width: 1px;
   height: 36px;
   background: var(--gray-200);
-}
-
-/* Badge at bottom */
-.hero-badge-container {
-  position: absolute;
-  bottom: 80px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 2;
-}
-
-.hero-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 8px 16px;
-  background: white;
-  border: 1px solid var(--gray-200);
-  border-radius: var(--radius-full);
-  font-size: 0.75rem;
-  font-weight: 500;
-  color: var(--primary-600);
-  box-shadow: var(--shadow-sm);
-}
-
-.hero-badge svg {
-  color: var(--primary-500);
 }
 
 /* Visual / Illustration */
@@ -470,10 +431,6 @@
   .floating-card {
     display: none;
   }
-  
-  .hero-badge-container {
-    bottom: 60px;
-  }
 }
 
 @media (max-width: 640px) {
@@ -502,15 +459,6 @@
   
   .scroll-indicator {
     display: none;
-  }
-  
-  .hero-badge-container {
-    position: relative;
-    bottom: auto;
-    left: auto;
-    transform: none;
-    text-align: center;
-    margin-top: 24px;
   }
   
   .illustration-circle {
