@@ -826,7 +826,12 @@ const fiberFoods = [
   display: flex;
   gap: 0;
   margin-bottom: 20px;
+  padding-top: 20px;
   position: relative;
+}
+
+.nutrient-section:first-child {
+  padding-top: 0;
 }
 
 .section-sidebar {
