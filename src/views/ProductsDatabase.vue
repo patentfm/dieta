@@ -805,28 +805,33 @@ const fiberFoods = [
 
 /* Sections */
 .nutrient-section {
-  margin-bottom: 64px;
+  margin-bottom: 48px;
 }
 
 .section-header {
-  margin-bottom: 32px;
+  margin-bottom: 20px;
+  padding: 16px 20px;
+  background: var(--gray-100);
+  border-left: 4px solid var(--primary-500);
+  border-radius: var(--radius-md);
 }
 
 .section-header h2 {
   display: flex;
   align-items: center;
-  gap: 12px;
-  font-size: 1.75rem;
-  margin-bottom: 8px;
+  gap: 10px;
+  font-size: 1.25rem;
+  margin: 0 0 4px 0;
 }
 
 .section-icon {
-  font-size: 1.5rem;
+  font-size: 1.25rem;
 }
 
 .section-header p {
   color: var(--gray-500);
-  font-size: 1rem;
+  font-size: 0.875rem;
+  margin: 0;
 }
 
 /* Nutrient Cards */
