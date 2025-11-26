@@ -23,25 +23,27 @@
       
       <div class="form-group">
         <label class="form-label">Płeć</label>
-        <div class="radio-group horizontal">
+        <div class="radio-group gender-group">
           <div 
-            class="radio-item"
+            class="radio-item gender-item"
             :class="{ selected: localData.gender === 'female' }"
             @click="localData.gender = 'female'"
           >
             <input type="radio" v-model="localData.gender" value="female" />
             <label>
-              <span class="option-title">👩 Kobieta</span>
+              <span class="gender-icon">👩</span>
+              <span class="gender-label">Kobieta</span>
             </label>
           </div>
           <div 
-            class="radio-item"
+            class="radio-item gender-item"
             :class="{ selected: localData.gender === 'male' }"
             @click="localData.gender = 'male'"
           >
             <input type="radio" v-model="localData.gender" value="male" />
             <label>
-              <span class="option-title">👨 Mężczyzna</span>
+              <span class="gender-icon">👨</span>
+              <span class="gender-label">Mężczyzna</span>
             </label>
           </div>
         </div>
@@ -158,18 +160,34 @@ watch(localData, (newVal) => {
   grid-column: 1 / -1;
 }
 
-.radio-group.horizontal {
+/* Gender selection - consistent layout */
+.gender-group {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 12px;
 }
 
-.radio-item {
-  text-align: center;
+.gender-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 16px !important;
 }
 
-.radio-group.horizontal .option-title {
-  font-size: 1rem;
+.gender-item label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.gender-icon {
+  font-size: 1.25rem;
+}
+
+.gender-label {
+  font-weight: 500;
+  color: var(--gray-800);
 }
 
 @media (max-width: 640px) {
@@ -177,8 +195,8 @@ watch(localData, (newVal) => {
     grid-template-columns: 1fr;
   }
   
-  .radio-group.horizontal {
-    grid-template-columns: 1fr;
+  .gender-group {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 </style>

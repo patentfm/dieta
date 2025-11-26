@@ -39,7 +39,7 @@
             <li><a href="#how-it-works">Jak to działa</a></li>
             <li><a href="#form">Rozpocznij analizę</a></li>
             <li><a href="#">Baza produktów</a></li>
-            <li><a href="#">FAQ</a></li>
+            <li><a href="#benefits" class="faq-link">FAQ</a></li>
           </ul>
         </div>
         
@@ -47,7 +47,7 @@
         <div class="footer-links">
           <h4>Zasoby</h4>
           <ul>
-            <li><a href="#">Blog o żywieniu</a></li>
+            <li><a href="#">Sztuczki kulinarne</a></li>
             <li><a href="#">Przepisy</a></li>
             <li><a href="#">Poradniki</a></li>
             <li><a href="#">Kalkulator BMI</a></li>

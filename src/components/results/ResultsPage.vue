@@ -81,12 +81,24 @@
             <div class="symptoms-list">
               <span class="symptoms-label">Twoje objawy:</span>
               <div class="symptom-tags">
-                <span class="symptom-tag" v-for="symptom in deficiency.symptoms.slice(0, 4)" :key="symptom">
-                  {{ symptom }}
-                </span>
-                <span class="symptom-tag more" v-if="deficiency.symptoms.length > 4">
-                  +{{ deficiency.symptoms.length - 4 }} więcej
-                </span>
+                <!-- Show limited or all symptoms -->
+                <template v-if="expandedDeficiencies[deficiency.id]">
+                  <span class="symptom-tag" v-for="symptom in deficiency.symptoms" :key="symptom">
+                    {{ symptom }}
+                  </span>
+                </template>
+                <template v-else>
+                  <span class="symptom-tag" v-for="symptom in deficiency.symptoms.slice(0, 4)" :key="symptom">
+                    {{ symptom }}
+                  </span>
+                  <button 
+                    class="symptom-tag more" 
+                    v-if="deficiency.symptoms.length > 4"
+                    @click="expandedDeficiencies[deficiency.id] = true"
+                  >
+                    +{{ deficiency.symptoms.length - 4 }} więcej
+                  </button>
+                </template>
               </div>
             </div>
 
@@ -98,26 +110,11 @@
         </div>
       </div>
 
-      <!-- Food Recommendations Section - NEW LAYOUT -->
+      <!-- Food Recommendations Section -->
       <div class="section" v-if="groupedRecommendations.length > 0">
         <div class="section-header">
           <h2>Rekomendowane produkty</h2>
           <p>Naturalne źródła składników, których Ci brakuje - posortowane od najtańszych</p>
-          
-          <div class="severity-legend">
-            <span class="legend-item high">
-              <span class="legend-dot"></span>
-              Wysoki priorytet
-            </span>
-            <span class="legend-item medium">
-              <span class="legend-dot"></span>
-              Średni priorytet
-            </span>
-            <span class="legend-item low">
-              <span class="legend-dot"></span>
-              Niski priorytet
-            </span>
-          </div>
         </div>
 
         <!-- Grouped by deficiency -->
@@ -131,9 +128,27 @@
             <div class="nutrient-badge" :class="group.severity">
               <span class="nutrient-icon">{{ group.icon }}</span>
               <span class="nutrient-name">{{ group.name }}</span>
-              <span class="severity-indicator">{{ getSeverityLabel(group.severity) }}</span>
             </div>
-            <span class="nutrient-symptom-count">{{ group.symptomCount }} objawów wskazuje na ten niedobór</span>
+            <button 
+              class="symptom-toggle"
+              @click="toggleRecommendationSymptoms(group.nutrientKey)"
+            >
+              <template v-if="!expandedRecommendationSymptoms[group.nutrientKey]">
+                <span>{{ group.symptomCount }} objawów wskazuje na ten niedobór</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M6 9l6 6 6-6"/>
+                </svg>
+              </template>
+              <template v-else>
+                <div class="expanded-symptoms">
+                  <span 
+                    class="mini-symptom" 
+                    v-for="symptom in group.symptoms" 
+                    :key="symptom"
+                  >{{ symptom }}</span>
+                </div>
+              </template>
+            </button>
           </div>
           
           <div class="nutrient-products">
@@ -171,15 +186,15 @@
             
             <!-- Other sources -->
             <div class="other-sources" v-if="group.otherFoods.length > 0">
-              <span class="other-label">Inne opłacalne źródła:</span>
+              <span class="other-label">Inne opłacalne źródła (cena za dzienną dawkę):</span>
               <div class="other-list">
                 <span 
                   class="other-item" 
                   v-for="food in group.otherFoods" 
                   :key="food.id"
-                  :title="`${food.nutrients[group.nutrientKey]}${getNutrientUnit(group.nutrientKey)}/100g • ${food.costPerDV} zł za dz. dawkę`"
+                  :title="`${food.nutrients[group.nutrientKey]}${getNutrientUnit(group.nutrientKey)}/100g`"
                 >
-                  {{ food.name }} <small>({{ food.costPerDV }} zł)</small>
+                  {{ food.name }} <small>({{ food.costPerDV }} zł/dz.)</small>
                 </span>
               </div>
             </div>
@@ -306,8 +321,9 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, reactive } from 'vue'
 import { categoryLabels, nutrientInfo, getCheapestFoodsForNutrient } from '../../data/foods.js'
+import { symptomCategories } from '../../data/symptoms.js'
 
 const props = defineProps({
   results: {
@@ -319,6 +335,8 @@ const props = defineProps({
 const emit = defineEmits(['back'])
 
 const showSavePopup = ref(false)
+const expandedDeficiencies = reactive({})
+const expandedRecommendationSymptoms = reactive({})
 
 const formattedDate = computed(() => {
   return new Date().toLocaleDateString('pl-PL', {
@@ -349,11 +367,16 @@ const groupedRecommendations = computed(() => {
         icon: deficiency.icon,
         severity: deficiency.severity.level,
         symptomCount: deficiency.symptomCount,
+        symptoms: deficiency.symptoms,
         topFoods: allFoods.slice(0, 3),
         otherFoods: allFoods.slice(3, 8)
       }
     })
 })
+
+const toggleRecommendationSymptoms = (nutrientKey) => {
+  expandedRecommendationSymptoms[nutrientKey] = !expandedRecommendationSymptoms[nutrientKey]
+}
 
 const getCategoryLabel = (category) => {
   return categoryLabels[category] || category
@@ -365,15 +388,6 @@ const getNutrientName = (key) => {
 
 const getNutrientUnit = (key) => {
   return nutrientInfo[key]?.unit || ''
-}
-
-const getSeverityLabel = (severity) => {
-  switch (severity) {
-    case 'high': return 'Wysoki priorytet'
-    case 'medium': return 'Średni priorytet'
-    case 'low': return 'Niski priorytet'
-    default: return ''
-  }
 }
 
 const saveResults = () => {
@@ -585,39 +599,6 @@ const downloadResults = () => {
   color: var(--gray-500);
 }
 
-/* Severity Legend */
-.severity-legend {
-  display: flex;
-  gap: 24px;
-  margin-top: 16px;
-}
-
-.legend-item {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 0.875rem;
-  color: var(--gray-600);
-}
-
-.legend-dot {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-}
-
-.legend-item.high .legend-dot {
-  background: #ef4444;
-}
-
-.legend-item.medium .legend-dot {
-  background: #f59e0b;
-}
-
-.legend-item.low .legend-dot {
-  background: #22c55e;
-}
-
 /* Deficiencies Grid */
 .deficiencies-grid {
   display: grid;
@@ -709,9 +690,17 @@ const downloadResults = () => {
   color: var(--gray-600);
 }
 
-.symptom-tag.more {
+button.symptom-tag.more {
   background: var(--primary-100);
   color: var(--primary-700);
+  cursor: pointer;
+  border: none;
+  font-family: inherit;
+  transition: all var(--transition-fast);
+}
+
+button.symptom-tag.more:hover {
+  background: var(--primary-200);
 }
 
 .risk-groups {
@@ -723,7 +712,7 @@ const downloadResults = () => {
   font-weight: 500;
 }
 
-/* ===== NEW: Nutrient Row Layout ===== */
+/* ===== Nutrient Row Layout ===== */
 .nutrient-row {
   background: white;
   border-radius: var(--radius-xl);
@@ -772,29 +761,43 @@ const downloadResults = () => {
   color: var(--gray-900);
 }
 
-.severity-indicator {
-  padding: 4px 12px;
+.symptom-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  background: var(--gray-100);
+  border: none;
+  border-radius: var(--radius-md);
+  font-size: 0.8125rem;
+  color: var(--gray-600);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  max-width: 60%;
+  text-align: left;
+}
+
+.symptom-toggle:hover {
+  background: var(--gray-200);
+}
+
+.symptom-toggle svg {
+  flex-shrink: 0;
+}
+
+.expanded-symptoms {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.mini-symptom {
+  padding: 3px 8px;
+  background: white;
   border-radius: var(--radius-full);
-  font-size: 0.75rem;
-  font-weight: 600;
-  color: white;
-}
-
-.nutrient-badge.high .severity-indicator {
-  background: #ef4444;
-}
-
-.nutrient-badge.medium .severity-indicator {
-  background: #f59e0b;
-}
-
-.nutrient-badge.low .severity-indicator {
-  background: #22c55e;
-}
-
-.nutrient-symptom-count {
-  font-size: 0.875rem;
-  color: var(--gray-500);
+  font-size: 0.6875rem;
+  color: var(--gray-700);
+  border: 1px solid var(--gray-200);
 }
 
 .nutrient-products {
@@ -942,7 +945,8 @@ const downloadResults = () => {
 }
 
 .other-item small {
-  color: var(--gray-400);
+  color: var(--primary-600);
+  font-weight: 500;
 }
 
 /* No Deficiencies */
@@ -1078,6 +1082,11 @@ const downloadResults = () => {
 .f3 { top: 30%; right: 60%; animation-delay: 1s; }
 .f4 { top: 70%; right: 15%; animation-delay: 1.5s; }
 
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
 /* Popup */
 .popup-overlay {
   position: fixed;
@@ -1207,6 +1216,10 @@ const downloadResults = () => {
     gap: 12px;
   }
   
+  .symptom-toggle {
+    max-width: 100%;
+  }
+  
   .top-products {
     grid-template-columns: 1fr;
   }
@@ -1242,11 +1255,6 @@ const downloadResults = () => {
   .cta-features {
     flex-direction: column;
     gap: 12px;
-  }
-  
-  .severity-legend {
-    flex-direction: column;
-    gap: 8px;
   }
 }
 </style>

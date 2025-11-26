@@ -10,15 +10,6 @@
     <div class="container">
       <div class="hero-content">
         <div class="hero-text">
-          <span class="hero-badge">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M12 2L2 7l10 5 10-5-10-5z"/>
-              <path d="M2 17l10 5 10-5"/>
-              <path d="M2 12l10 5 10-5"/>
-            </svg>
-            Analiza Żywieniowa
-          </span>
-          
           <h1 class="hero-title">
             Odkryj czego brakuje
             <span class="text-gradient">Twojemu ciału</span>
@@ -101,6 +92,18 @@
       </div>
     </div>
     
+    <!-- Badge moved to bottom -->
+    <div class="hero-badge-container">
+      <span class="hero-badge">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+          <path d="M2 17l10 5 10-5"/>
+          <path d="M2 12l10 5 10-5"/>
+        </svg>
+        Analiza Żywieniowa
+      </span>
+    </div>
+    
     <!-- Scroll indicator -->
     <div class="scroll-indicator">
       <div class="mouse">
@@ -120,7 +123,7 @@
   min-height: 100vh;
   display: flex;
   align-items: center;
-  padding: 120px 0 80px;
+  padding: 60px 0 40px;
   overflow: hidden;
 }
 
@@ -171,7 +174,7 @@
   z-index: 1;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 80px;
+  gap: 60px;
   align-items: center;
 }
 
@@ -179,27 +182,8 @@
   animation: fadeInUp 0.8s ease forwards;
 }
 
-.hero-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 20px;
-  background: white;
-  border: 1px solid var(--gray-200);
-  border-radius: var(--radius-full);
-  font-size: 0.875rem;
-  font-weight: 500;
-  color: var(--primary-600);
-  margin-bottom: 24px;
-  box-shadow: var(--shadow-sm);
-}
-
-.hero-badge svg {
-  color: var(--primary-500);
-}
-
 .hero-title {
-  margin-bottom: 24px;
+  margin-bottom: 20px;
   line-height: 1.1;
 }
 
@@ -212,23 +196,24 @@
 }
 
 .hero-description {
-  font-size: 1.25rem;
+  font-size: 1.125rem;
   color: var(--gray-600);
-  margin-bottom: 32px;
-  max-width: 540px;
+  margin-bottom: 28px;
+  max-width: 520px;
+  line-height: 1.7;
 }
 
 .hero-cta {
   display: flex;
   gap: 16px;
-  margin-bottom: 48px;
+  margin-bottom: 36px;
 }
 
 /* Stats */
 .hero-stats {
   display: flex;
   align-items: center;
-  gap: 32px;
+  gap: 28px;
 }
 
 .stat {
@@ -237,20 +222,47 @@
 
 .stat-number {
   display: block;
-  font-size: 2rem;
+  font-size: 1.75rem;
   font-weight: 800;
   color: var(--gray-900);
 }
 
 .stat-label {
-  font-size: 0.875rem;
+  font-size: 0.8125rem;
   color: var(--gray-500);
 }
 
 .stat-divider {
   width: 1px;
-  height: 40px;
+  height: 36px;
   background: var(--gray-200);
+}
+
+/* Badge at bottom */
+.hero-badge-container {
+  position: absolute;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  background: white;
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--primary-600);
+  box-shadow: var(--shadow-sm);
+}
+
+.hero-badge svg {
+  color: var(--primary-500);
 }
 
 /* Visual / Illustration */
@@ -277,21 +289,21 @@
 
 .illustration-circle {
   position: relative;
-  width: 400px;
-  height: 400px;
+  width: 350px;
+  height: 350px;
   background: linear-gradient(135deg, var(--primary-100), var(--primary-50));
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   box-shadow: 
-    0 0 0 20px rgba(34, 197, 94, 0.1),
-    0 0 0 40px rgba(34, 197, 94, 0.05);
+    0 0 0 16px rgba(34, 197, 94, 0.1),
+    0 0 0 32px rgba(34, 197, 94, 0.05);
 }
 
 .center-icon {
-  width: 80px;
-  height: 80px;
+  width: 72px;
+  height: 72px;
   background: white;
   border-radius: 50%;
   display: flex;
@@ -303,24 +315,24 @@
 
 .food-item {
   position: absolute;
-  font-size: 2.5rem;
+  font-size: 2.25rem;
   animation: float 4s ease-in-out infinite;
 }
 
-.food-1 { top: 20px; left: 50%; transform: translateX(-50%); animation-delay: 0s; }
-.food-2 { top: 80px; right: 30px; animation-delay: 0.5s; }
-.food-3 { bottom: 80px; right: 20px; animation-delay: 1s; }
-.food-4 { bottom: 20px; left: 50%; transform: translateX(-50%); animation-delay: 1.5s; }
-.food-5 { bottom: 80px; left: 20px; animation-delay: 2s; }
-.food-6 { top: 80px; left: 30px; animation-delay: 2.5s; }
+.food-1 { top: 16px; left: 50%; transform: translateX(-50%); animation-delay: 0s; }
+.food-2 { top: 70px; right: 26px; animation-delay: 0.5s; }
+.food-3 { bottom: 70px; right: 16px; animation-delay: 1s; }
+.food-4 { bottom: 16px; left: 50%; transform: translateX(-50%); animation-delay: 1.5s; }
+.food-5 { bottom: 70px; left: 16px; animation-delay: 2s; }
+.food-6 { top: 70px; left: 26px; animation-delay: 2.5s; }
 
 /* Floating cards */
 .floating-card {
   position: absolute;
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 16px 20px;
+  gap: 10px;
+  padding: 14px 18px;
   background: white;
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-xl);
@@ -328,25 +340,26 @@
 }
 
 .card-1 {
-  top: 60px;
+  top: 50px;
   right: -20px;
   animation-delay: 0.5s;
 }
 
 .card-2 {
-  bottom: 80px;
+  bottom: 70px;
   left: -40px;
   animation-delay: 1s;
 }
 
 .card-icon {
-  width: 40px;
-  height: 40px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: 700;
+  font-size: 0.875rem;
 }
 
 .card-icon.success {
@@ -366,44 +379,44 @@
 
 .card-title {
   font-weight: 600;
-  font-size: 0.875rem;
+  font-size: 0.8125rem;
   color: var(--gray-800);
 }
 
 .card-desc {
-  font-size: 0.75rem;
+  font-size: 0.6875rem;
   color: var(--gray-500);
 }
 
 /* Scroll indicator */
 .scroll-indicator {
   position: absolute;
-  bottom: 32px;
+  bottom: 20px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   color: var(--gray-400);
-  font-size: 0.75rem;
+  font-size: 0.6875rem;
   animation: fadeIn 1s ease 1s forwards;
   opacity: 0;
 }
 
 .mouse {
-  width: 24px;
-  height: 40px;
+  width: 20px;
+  height: 32px;
   border: 2px solid var(--gray-300);
-  border-radius: 12px;
+  border-radius: 10px;
   display: flex;
   justify-content: center;
-  padding-top: 8px;
+  padding-top: 6px;
 }
 
 .wheel {
-  width: 4px;
-  height: 8px;
+  width: 3px;
+  height: 6px;
   background: var(--gray-400);
   border-radius: 2px;
   animation: scroll 1.5s ease-in-out infinite;
@@ -411,14 +424,18 @@
 
 @keyframes scroll {
   0%, 100% { opacity: 1; transform: translateY(0); }
-  50% { opacity: 0.5; transform: translateY(6px); }
+  50% { opacity: 0.5; transform: translateY(4px); }
 }
 
 /* Responsive */
 @media (max-width: 1024px) {
+  .hero {
+    padding: 40px 0 30px;
+  }
+  
   .hero-content {
     grid-template-columns: 1fr;
-    gap: 60px;
+    gap: 40px;
     text-align: center;
   }
   
@@ -428,7 +445,7 @@
   
   .hero-visual {
     order: 0;
-    max-width: 400px;
+    max-width: 320px;
     margin: 0 auto;
   }
   
@@ -446,27 +463,32 @@
   }
   
   .illustration-circle {
-    width: 300px;
-    height: 300px;
+    width: 260px;
+    height: 260px;
   }
   
   .floating-card {
     display: none;
   }
+  
+  .hero-badge-container {
+    bottom: 60px;
+  }
 }
 
 @media (max-width: 640px) {
   .hero {
-    padding: 100px 0 60px;
+    padding: 30px 0 20px;
+    min-height: auto;
   }
   
   .hero-stats {
     flex-direction: column;
-    gap: 16px;
+    gap: 12px;
   }
   
   .stat-divider {
-    width: 60px;
+    width: 50px;
     height: 1px;
   }
   
@@ -481,6 +503,23 @@
   .scroll-indicator {
     display: none;
   }
+  
+  .hero-badge-container {
+    position: relative;
+    bottom: auto;
+    left: auto;
+    transform: none;
+    text-align: center;
+    margin-top: 24px;
+  }
+  
+  .illustration-circle {
+    width: 220px;
+    height: 220px;
+  }
+  
+  .food-item {
+    font-size: 1.75rem;
+  }
 }
 </style>
-

@@ -1,5 +1,5 @@
 <template>
-  <section class="benefits">
+  <section id="benefits" class="benefits">
     <div class="container">
       <div class="benefits-grid">
         <div class="benefits-content">
@@ -251,4 +251,3 @@ const cards = [
   }
 }
 </style>
-
