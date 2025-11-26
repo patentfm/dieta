@@ -498,7 +498,14 @@ const scrollToSection = (id) => {
   activeSection.value = id
   const element = document.getElementById(id)
   if (element) {
-    element.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    const navHeight = 70 // Height of sticky nav
+    const elementPosition = element.getBoundingClientRect().top + window.pageYOffset
+    const offsetPosition = elementPosition - navHeight
+    
+    window.scrollTo({
+      top: offsetPosition,
+      behavior: 'smooth'
+    })
   }
 }
 
