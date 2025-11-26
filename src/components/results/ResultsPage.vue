@@ -311,7 +311,7 @@
               <line x1="12" y1="16" x2="12" y2="12"/>
               <line x1="12" y1="8" x2="12.01" y2="8"/>
             </svg>
-            <span>Kliknij <strong>"Zobacz poprzednie wyniki"</strong> w stopce strony głównej, aby je otworzyć.</span>
+            <span>Kliknij <strong>"Zobacz poprzednie wyniki"</strong> samej górze strony głównej, aby je znów otworzyć.</span>
           </div>
           <button class="btn btn-primary" @click="showSavePopup = false">Rozumiem</button>
         </div>

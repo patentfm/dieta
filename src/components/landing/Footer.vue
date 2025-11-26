@@ -38,7 +38,7 @@
           <ul>
             <li><a href="#how-it-works">Jak to działa</a></li>
             <li><a href="#form">Rozpocznij analizę</a></li>
-            <li><a href="#">Baza produktów</a></li>
+            <li><router-link to="/baza-produktow">Baza produktów</router-link></li>
             <li><a href="#benefits" class="faq-link">FAQ</a></li>
           </ul>
         </div>
@@ -47,10 +47,10 @@
         <div class="footer-links">
           <h4>Zasoby</h4>
           <ul>
-            <li><a href="#">Sztuczki kulinarne</a></li>
-            <li><a href="#">Przepisy</a></li>
-            <li><a href="#">Poradniki</a></li>
-            <li><a href="#">Kalkulator BMI</a></li>
+            <li><router-link to="/sztuczki-kulinarne">Sztuczki kulinarne</router-link></li>
+            <li><router-link to="/przepisy">Przepisy</router-link></li>
+            <li><router-link to="/poradniki">Poradniki</router-link></li>
+            <li><router-link to="/kalkulator-bmi">Kalkulator BMI</router-link></li>
           </ul>
         </div>
         
@@ -58,20 +58,22 @@
         <div class="footer-links">
           <h4>Informacje</h4>
           <ul>
-            <li><a href="#">O nas</a></li>
-            <li><a href="#">Polityka prywatności</a></li>
-            <li><a href="#">Regulamin</a></li>
-            <li><a href="#">Kontakt</a></li>
-            <li v-if="hasSavedResults">
-              <a href="#" class="saved-results-link" @click.prevent="$emit('viewResults')">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                </svg>
-                Zobacz poprzednie wyniki
-              </a>
-            </li>
+            <li><router-link to="/o-nas">O nas</router-link></li>
+            <li><router-link to="/polityka-prywatnosci">Polityka prywatności</router-link></li>
+            <li><router-link to="/regulamin">Regulamin</router-link></li>
+            <li><router-link to="/kontakt">Kontakt</router-link></li>
           </ul>
         </div>
+      </div>
+      
+      <!-- Saved Results Link - Centered -->
+      <div v-if="hasSavedResults" class="saved-results-section">
+        <router-link to="/wyniki" class="saved-results-link">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          </svg>
+          Zobacz swoje poprzednie wyniki
+        </router-link>
       </div>
       
       <div class="footer-bottom">
@@ -102,8 +104,6 @@ defineProps({
     default: false
   }
 })
-
-defineEmits(['viewResults'])
 
 const currentYear = new Date().getFullYear()
 </script>
@@ -202,16 +202,31 @@ const currentYear = new Date().getFullYear()
   color: var(--primary-400);
 }
 
+/* Saved Results Section - Centered */
+.saved-results-section {
+  display: flex;
+  justify-content: center;
+  padding: 32px 0;
+  border-bottom: 1px solid var(--gray-700);
+}
+
 .saved-results-link {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  color: var(--primary-400) !important;
-  font-weight: 500;
+  gap: 10px;
+  padding: 14px 28px;
+  background: linear-gradient(135deg, var(--primary-500), var(--primary-600));
+  color: white;
+  font-weight: 600;
+  font-size: 0.9375rem;
+  border-radius: var(--radius-full);
+  transition: all var(--transition-fast);
+  box-shadow: 0 4px 14px rgba(var(--primary-rgb), 0.3);
 }
 
 .saved-results-link:hover {
-  color: var(--primary-300) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(var(--primary-rgb), 0.4);
 }
 
 /* Bottom */
@@ -289,6 +304,11 @@ const currentYear = new Date().getFullYear()
     flex-direction: column;
     align-items: center;
     text-align: center;
+  }
+  
+  .saved-results-link {
+    width: 100%;
+    justify-content: center;
   }
 }
 </style>
